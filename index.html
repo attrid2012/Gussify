@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#100720">
+<title>GUSSIFY — Think It. Hide It. We'll Find It.</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Cinzel:wght@600;700;800&display=swap');
+
+:root {
+  --bg: #100720;
+  --panel: #1d1034;
+  --purple: #873cff;
+  --violet: #bd79ff;
+  --gold: #ffd477;
+  --text: #fff8ff;
+  --muted: #b8a7cc;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background:
+    radial-gradient(ellipse at 50% 0%, #482078 0%, transparent 50%),
+    radial-gradient(ellipse at 90% 80%, #29104b 0%, transparent 40%),
+    var(--bg);
+  color: var(--text);
+  font-family: 'Outfit', sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+#particles {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.particle {
+  position: absolute;
+  background: var(--gold);
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  opacity: .65;
+  animation: float 7s infinite ease-in-out;
+}
+
+@keyframes float {
+  0%,100% { transform: translateY(0); opacity: .2; }
+  50% { transform: translateY(-35px); opacity: .9; }
+}
+
+header {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 6%;
+  border-bottom: 1px solid #ffffff12;
+}
+
+.brand {
+  font-family: 'Cinzel', serif;
+  color: var(--gold);
+  font-size: 27px;
+  font-weight: 800;
+  letter-spacing: 3px;
+  text-shadow: 0 0 20px #ffbd5a55;
+}
+
+.brand span {
+  color: white;
+}
+
+.header-tag {
+  color: var(--muted);
+  font-size: 12px;
+  letter-spacing: 2px;
+}
+
+main {
+  width: min(1050px, 92%);
+  margin: auto;
+  position: relative;
+  z-index: 1;
+  padding: 45px 0 70px;
+}
+
+.screen {
+  display: none;
+  animation: appear .5s ease;
+}
+
+.screen.active {
+  display: block;
+}
+
+@keyframes appear {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.hero {
+  text-align: center;
+  padding: 20px 0 45px;
+}
+
+.genie {
+  width: 150px;
+  height: 150px;
+  margin: auto auto 22px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: radial-gradient(circle, #9e53ff55, #5c22a922 60%, transparent 70%);
+  border: 1px solid #d5a1ff35;
+  box-shadow: 0 0 65px #9b48ff33, inset 0 0 30px #c68aff22;
+  font-size: 76px;
+  animation: magic 4s infinite ease-in-out;
+}
+
+@keyframes magic {
+  0%,100% { transform: translateY(0) rotate(-3deg); }
+  50% { transform: translateY(-12px) rotate(3deg); }
+}
+
+.eyebrow {
+  color: var(--gold);
+  letter-spacing: 4px;
+  font-size: 11px;
+  font-weight: 700;
+  margin-bottom: 13px;
+}
+
+h1 {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(38px, 7vw, 70px);
+  color: var(--gold);
+  letter-spacing: 4px;
+  text-shadow: 0 4px 30px #ffb94c44;
+}
+
+.hero p {
+  color: var(--muted);
+  margin: 15px auto 25px;
+  max-width: 510px;
+  line-height: 1.7;
+}
+
+.gold-button {
+  border: none;
+  padding: 16px 35px;
+  border-radius: 50px;
+  color: #29133b;
+  font-size: 14px;
+  font-weight: 900;
+  letter-spacing: 1.5px;
+  background: linear-gradient(110deg,#ffdf94,#f5b844,#ffe7a8);
+  box-shadow: 0 5px 30px #f8bd503d;
+  transition: .25s;
+}
+
+.gold-button:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 40px #f8bd5070;
+}
+
+.section-title {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.section-title h2 {
+  font-family: 'Cinzel',serif;
+  font-size: 25px;
+  color: var(--gold);
+}
+
+.section-title p {
+  color: var(--muted);
+  font-size: 13px;
+  margin-top: 8px;
+}
+
+.categories {
+  display: grid;
+  grid-template-columns: repeat(5,1fr);
+  gap: 13px;
+}
+
+.category {
+  min-height: 135px;
+  background: linear-gradient(145deg,#30204b,#1b102c);
+  border: 1px solid #ffffff17;
+  border-radius: 18px;
+  color: white;
+  padding: 17px 8px;
+  transition: .25s;
+  text-align: center;
+}
+
+.category:hover {
+  border-color: var(--gold);
+  transform: translateY(-5px);
+  background: linear-gradient(145deg,#56317e,#241039);
+}
+
+.category .icon {
+  font-size: 34px;
+  margin-bottom: 12px;
+  display: block;
+}
+
+.category strong {
+  font-size: 13px;
+}
+
+.category small {
+  display: block;
+  margin-top: 5px;
+  color: var(--muted);
+  font-size: 10px;
+}
+
+.game-box {
+  max-width: 730px;
+  margin: auto;
+  background: linear-gradient(145deg,#26163e,#180d29);
+  border: 1px solid #b67aff35;
+  border-radius: 27px;
+  padding: 30px;
+  box-shadow: 0 20px 70px #0005;
+}
+
+.game-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.badge {
+  color: var(--gold);
+  border: 1px solid #ffd47755;
+  background: #ffd47712;
+  padding: 8px 13px;
+  border-radius: 30px;
+  font-size: 11px;
+}
+
+.progress {
+  height: 6px;
+  background: #ffffff15;
+  border-radius: 10px;
+  margin-bottom: 30px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg,#873cff,#ffd477);
+  transition: .4s;
+}
+
+.question-icon {
+  font-size: 50px;
+  text-align: center;
+  margin: 15px 0;
+}
+
+.question {
+  font-family: 'Cinzel',serif;
+  text-align: center;
+  font-size: clamp(20px,4vw,29px);
+  line-height: 1.5;
+  margin: 15px 0 30px;
+  min-height: 85px;
+}
+
+.answers {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.answer {
+  background: #ffffff09;
+  border: 1px solid #ffffff20;
+  color: white;
+  padding: 17px;
+  border-radius: 13px;
+  font-size: 14px;
+  font-weight: 600;
+  transition: .2s;
+}
+
+.answer:hover {
+  background: #7737b7;
+  border-color: var(--gold);
+  transform: scale(1.02);
+}
+
+.answer:last-child {
+  grid-column: 1 / -1;
+}
+
+.game-footer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 25px;
+  align-items: center;
+}
+
+.text-button {
+  background: transparent;
+  border: none;
+  color: var(--muted);
+  font-size: 13px;
+  padding: 8px;
+}
+
+.text-button:hover {
+  color: var(--gold);
+}
+
+.result {
+  text-align: center;
+  max-width: 650px;
+  margin: auto;
+  background: linear-gradient(145deg,#2d1947,#170b27);
+  border: 1px solid #d5a1ff40;
+  border-radius: 28px;
+  padding: 35px 25px;
+}
+
+.result .big-icon {
+  font-size: 75px;
+  margin-bottom: 15px;
+}
+
+.result h2 {
+  color: var(--gold);
+  font-family: 'Cinzel',serif;
+  font-size: 30px;
+  margin-bottom: 12px;
+}
+
+.guess-name {
+  font-size: 32px;
+  font-weight: 900;
+  color: white;
+  margin: 20px 0;
+}
+
+.result p {
+  color: var(--muted);
+  line-height: 1.6;
+  margin-bottom: 25px;
+}
+
+.result-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+}
+
+.outline-button {
+  padding: 14px 25px;
+  border-radius: 40px;
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  background: transparent;
+  font-weight: 700;
+}
+
+.outline-button:hover {
+  background: #ffd47718;
+}
+
+footer {
+  text-align: center;
+  padding: 20px;
+  color: #8c789e;
+  font-size: 11px;
+  letter-spacing: 1px;
+  position: relative;
+  z-index: 1;
+}
+
+@media(max-width:700px) {
+  .categories { grid-template-columns: repeat(2,1fr); }
+  header { padding: 17px 5%; }
+  .header-tag { display: none; }
+  main { padding-top: 25px; }
+  .game-box { padding: 20px 15px; }
+}
+
+@media(max-width:380px) {
+  .answers { grid-template-columns: 1fr; }
+  .answer:last-child { grid-column: auto; }
+}
+</style>
+</head>
+
+<body>
+
+<div id="particles"></div>
+
+<header>
+  <div class="brand">GUSS<span>IFY</span></div>
+  <div class="header-tag">THE ART OF GUESSING</div>
+</header>
+
+<main>
+
+<!-- HOME -->
+<section id="home" class="screen active">
+  <div class="hero">
+    <div class="genie">🧞</div>
+    <div class="eyebrow">THE MAGIC OF ARTIFICIAL INTELLIGENCE</div>
+    <h1>GUSSIFY</h1>
+    <p>Think of anyone or anything. Keep it secret. Answer my questions. Let's see if I can discover what's inside your mind!</p>
+    <button class="gold-button" onclick="showScreen('categories')">
+      ✦ START GUESSING ✦
+    </button>
+  </div>
+</section>
+
+<!-- CATEGORIES -->
+<section id="categories" class="screen">
+  <div class="section-title">
+    <div class="eyebrow">CHOOSE YOUR UNIVERSE</div>
+    <h2>What are you thinking about?</h2>
+    <p>Select a category and let the magic begin.</p>
+  </div>
+  <div class="categories" id="categoryGrid"></div>
+  <div style="text-align:center;margin-top:25px">
+    <button class="text-button" onclick="showScreen('home')">← Back to home</button>
+  </div>
+</section>
+
+<!-- GAME -->
+<section id="game" class="screen">
+  <div class="game-box">
+    <div class="game-top">
+      <span class="badge" id="categoryBadge">CATEGORY</span>
+      <span class="badge" id="questionCount">QUESTION 1</span>
+    </div>
+
+    <div class="progress">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
+
+    <div class="question-icon">✨</div>
+    <div class="question" id="questionText">Are you ready?</div>
+
+    <div class="answers">
+      <button class="answer" onclick="answerQuestion('yes')">✓ Yes</button>
+      <button class="answer" onclick="answerQuestion('no')">✕ No</button>
+      <button class="answer" onclick="answerQuestion('probably')">◉ Probably</button>
+      <button class="answer" onclick="answerQuestion('unlikely')">◯ Probably not</button>
+      <button class="answer" onclick="answerQuestion('unknown')">? Don't know</button>
+    </div>
+
+    <div class="game-footer">
+      <button class="text-button" onclick="showScreen('categories')">← Change category</button>
+      <span style="font-size:11px;color:#a995bd">THINK CAREFULLY ✦</span>
+    </div>
+  </div>
+</section>
+
+<!-- RESULT -->
+<section id="result" class="screen">
+  <div class="result">
+    <div class="big-icon">🧞‍♂️</div>
+    <div class="eyebrow">THE GENIE HAS A GUESS!</div>
+    <h2>Is this your answer?</h2>
+    <div class="guess-name" id="guessName">Albert Einstein</div>
+    <p id="guessDescription">I think I have discovered your secret!</p>
+
+    <div class="result-actions">
+      <button class="gold-button" onclick="correctGuess()">✦ YES, YOU GOT IT!</button>
+      <button class="outline-button" onclick="wrongGuess()">NO, TRY AGAIN</button>
+    </div>
+    <div style="margin-top:20px">
+      <button class="text-button" onclick="showScreen('categories')">Exit game</button>
+    </div>
+  </div>
+</section>
+
+<!-- END -->
+<section id="end" class="screen">
+  <div class="result">
+    <div class="big-icon">🔮</div>
+    <h2>You defeated GUSSIFY!</h2>
+    <p>I couldn't discover your secret this time. My knowledge can grow with new characters and answers.</p>
+    <button class="gold-button" onclick="showScreen('categories')">PLAY AGAIN</button>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  GUSSIFY © 2026 · THINK IT. HIDE IT. WE'LL FIND IT.
+</footer>
+
+<script>
+
+// PARTICLES
+const particleBox = document.getElementById('particles');
+
+for(let i=0;i<45;i++){
+  const p=document.createElement('div');
+  p.className='particle';
+  p.style.left=Math.random()*100+'%';
+  p.style.top=Math.random()*100+'%';
+  p.style.animationDelay=Math.random()*7+'s';
+  p.style.animationDuration=(5+Math.random()*6)+'s';
+  particleBox.appendChild(p);
+}
+
+// CATEGORIES
+const categories=[
+  {name:'Famous People',icon:'👑',desc:'Leaders and personalities'},
+  {name:'Actors & Celebrities',icon:'🎬',desc:'Stars and entertainers'},
+  {name:'Sports Stars',icon:'🏏',desc:'Athletes and champions'},
+  {name:'Historical Figures',icon:'📜',desc:'People from history'},
+  {name:'Superheroes',icon:'🦸',desc:'Heroes and villains'},
+  {name:'Gaming Characters',icon:'🎮',desc:'Video game worlds'},
+  {name:'Animals & Birds',icon:'🦁',desc:'The animal kingdom'},
+  {name:'Cars & Vehicles',icon:'🏎️',desc:'Machines and automobiles'},
+  {name:'Countries & Places',icon:'🌍',desc:'Explore the world'},
+  {name:'Objects & Inventions',icon:'💡',desc:'Things around us'}
+];
+
+const categoryGrid=document.getElementById('categoryGrid');
+
+categories.forEach((c,i)=>{
+  const b=document.createElement('button');
+  b.className='category';
+  b.innerHTML=`<span class="icon">${c.icon}</span><strong>${c.name}</strong><small>${c.desc}</small>`;
+  b.onclick=()=>startGame(i);
+  categoryGrid.appendChild(b);
+});
+
+// KNOWLEDGE DATABASE
+// Each character has traits used to select adaptive questions.
+
+const database = {
+
+0:[
+{name:'Albert Einstein',desc:'The legendary theoretical physicist.',traits:{male:true,scientist:true,historical:true,alive:false,indian:false,politician:false,actor:false,sports:false,american:false,scientific:true}},
+{name:'Mahatma Gandhi',desc:'A major leader of India's independence movement.',traits:{male:true,indian:true,historical:true,alive:false,politician:true,scientist:false,american:false,actor:false,sports:false}},
+{name:'Narendra Modi',desc:'Prime Minister of India.',traits:{male:true,indian:true,alive:true,politician:true,scientist:false,american:false,actor:false,sports:false}},
+{name:'Elon Musk',desc:'Technology entrepreneur and business leader.',traits:{male:true,alive:true,american:true,scientist:false,politician:false,actor:false,sports:false,indian:false}},
+{name:'Marie Curie',desc:'Pioneering scientist known for her research on radioactivity.',traits:{male:false,scientist:true,historical:true,alive:false,politician:false,indian:false,actor:false,sports:false}},
+{name:'A. P. J. Abdul Kalam',desc:'Indian aerospace scientist and former President.',traits:{male:true,indian:true,scientist:true,historical:true,alive:false,politician:true,actor:false,sports:false}},
+{name:'Cristiano Ronaldo',desc:'International football superstar.',traits:{male:true,alive:true,sports:true,indian:false,actor:false,scientist:false,politician:false}},
+{name:'Virat Kohli',desc:'Indian cricket superstar.',traits:{male:true,alive:true,sports:true,indian:true,actor:false,scientist:false,politician:false}}
+],
+
+1:[
+{name:'Shah Rukh Khan',desc:'One of India's most famous film stars.',traits:{male:true,indian:true,actor:true,alive:true,bollywood:true}},
+{name:'Amitabh Bachchan',desc:'Legendary Indian film actor.',traits:{male:true,indian:true,actor:true,alive:true,bollywood:true}},
+{name:'Leonardo DiCaprio',desc:'Hollywood actor and Academy Award winner.',traits:{male:true,actor:true,alive:true,american:true,bollywood:false}},
+{name:'Tom Cruise',desc:'Hollywood actor known for action films.',traits:{male:true,actor:true,alive:true,american:true}},
+{name:'Deepika Padukone',desc:'Popular Indian film actress.',traits:{male:false,indian:true,actor:true,alive:true,bollywood:true}},
+{name:'Priyanka Chopra',desc:'Indian actress and international star.',traits:{male:false,indian:true,actor:true,alive:true,bollywood:true}},
+{name:'Robert Downey Jr.',desc:'Actor famous for playing Iron Man.',traits:{male:true,actor:true,alive:true,american:true}},
+{name:'Salman Khan',desc:'Popular Indian film actor.',traits:{male:true,indian:true,actor:true,alive:true,bollywood:true}}
+],
+
+2:[
+{name:'Virat Kohli',desc:'Indian international cricket legend.',traits:{male:true,indian:true,sports:true,cricket:true,alive:true}},
+{name:'Sachin Tendulkar',desc:'One of the greatest cricket players ever.',traits:{male:true,indian:true,sports:true,cricket:true,alive:true}},
+{name:'MS Dhoni',desc:'Former Indian cricket captain.',traits:{male:true,indian:true,sports:true,cricket:true,alive:true}},
+{name:'Cristiano Ronaldo',desc:'Portuguese football superstar.',traits:{male:true,sports:true,football:true,alive:true,indian:false}},
+{name:'Lionel Messi',desc:'Argentine football legend.',traits:{male:true,sports:true,football:true,alive:true,indian:false}},
+{name:'Neeraj Chopra',desc:'Indian Olympic javelin champion.',traits:{male:true,indian:true,sports:true,alive:true}},
+{name:'PV Sindhu',desc:'Indian badminton champion.',traits:{male:false,indian:true,sports:true,alive:true}},
+{name:'Michael Jordan',desc:'Basketball legend.',traits:{male:true,sports:true,american:true,alive:true}}
+],
+
+3:[
+{name:'Ashoka',desc:'Ancient Indian emperor of the Maurya dynasty.',traits:{male:true,indian:true,historical:true,emperor:true,alive:false}},
+{name:'Akbar',desc:'Famous Mughal emperor.',traits:{male:true,indian:true,historical:true,emperor:true,alive:false}},
+{name:'Rani Lakshmibai',desc:'Queen of Jhansi and freedom fighter.',traits:{male:false,indian:true,historical:true,alive:false,warrior:true}},
+{name:'Napoleon Bonaparte',desc:'French military and political leader.',traits:{male:true,historical:true,alive:false,politician:true,warrior:true}},
+{name:'Abraham Lincoln',desc:'Former American president.',traits:{male:true,historical:true,alive:false,politician:true,american:true}},
+{name:'Cleopatra',desc:'Ancient Egyptian queen.',traits:{male:false,historical:true,alive:false,emperor:true}},
+{name:'Chandragupta Maurya',desc:'Founder of the Maurya Empire.',traits:{male:true,indian:true,historical:true,alive:false,emperor:true}}
+],
+
+4:[
+{name:'Iron Man',desc:'Marvel superhero and genius inventor.',traits:{male:true,superhero:true,marvel:true,fictional:true,technology:true}},
+{name:'Spider-Man',desc:'Marvel superhero with spider-like abilities.',traits:{male:true,superhero:true,marvel:true,fictional:true}},
+{name:'Batman',desc:'The Dark Knight of Gotham City.',traits:{male:true,superhero:true,dc:true,fictional:true}},
+{name:'Superman',desc:'Superhero from the planet Krypton.',traits:{male:true,superhero:true,dc:true,fictional:true,alien:true}},
+{name:'Wonder Woman',desc:'Amazonian superhero.',traits:{male:false,superhero:true,dc:true,fictional:true}},
+{name:'Hulk',desc:'Marvel superhero with extraordinary strength.',traits:{male:true,superhero:true,marvel:true,fictional:true}},
+{name:'Thor',desc:'Marvel superhero based on Norse mythology.',traits:{male:true,superhero:true,marvel:true,fictional:true,alien:true}},
+{name:'Harry Potter',desc:'Young wizard from the famous fantasy series.',traits:{male:true,fictional:true,magic:true}}
+],
+
+5:[
+{name:'Mario',desc:'Famous Nintendo video game character.',traits:{male:true,fictional:true,gaming:true,nintendo:true}},
+{name:'Sonic',desc:'The speedy blue hedgehog.',traits:{male:true,fictional:true,gaming:true,animal:true}},
+{name:'Pikachu',desc:'Electric Pokémon.',traits:{male:false,fictional:true,gaming:true,animal:true}},
+{name:'Steve',desc:'The iconic Minecraft character.',traits:{male:true,fictional:true,gaming:true,minecraft:true}},
+{name:'Lara Croft',desc:'Adventurer from Tomb Raider.',traits:{male:false,fictional:true,gaming:true}},
+{name:'Kratos',desc:'Warrior from the God of War series.',traits:{male:true,fictional:true,gaming:true}},
+{name:'Pac-Man',desc:'Classic arcade game character.',traits:{male:false,fictional:true,gaming:true}}
+],
+
+6:[
+{name:'Lion',desc:'Powerful wild cat known as the king of the jungle.',traits:{animal:true,wild:true,mammal:true,land:true,big:true}},
+{name:'Elephant',desc:'Largest living land animal.',traits:{animal:true,wild:true,mammal:true,land:true,big:true}},
+{name:'Dolphin',desc:'Intelligent marine mammal.',traits:{animal:true,wild:true,mammal:true,water:true}},
+{name:'Eagle',desc:'Powerful bird of prey.',traits:{animal:true,bird:true,wild:true,flies:true}},
+{name:'Penguin',desc:'Flightless bird that swims.',traits:{animal:true,bird:true,wild:true,water:true}},
+{name:'Tiger',desc:'Large striped wild cat.',traits:{animal:true,wild:true,mammal:true,land:true,big:true}},
+{name:'Dog',desc:'Popular domesticated animal.',traits:{animal:true,pet:true,mammal:true,land:true}},
+{name:'Parrot',desc:'Colourful bird known for mimicking sounds.',traits:{animal:true,bird:true,pet:true,flies:true}}
+],
+
+7:[
+{name:'Bugatti Chiron',desc:'A high-performance hypercar.',traits:{vehicle:true,car:true,luxury:true,sports:true,fast:true}},
+{name:'Tesla Model S',desc:'An electric luxury sedan.',traits:{vehicle:true,car:true,electric:true,luxury:true}},
+{name:'Rolls-Royce Phantom',desc:'Ultra-luxury automobile.',traits:{vehicle:true,car:true,luxury:true}},
+{name:'Ferrari SF90',desc:'Italian performance sports car.',traits:{vehicle:true,car:true,sports:true,fast:true}},
+{name:'Boeing 747',desc:'Famous passenger aircraft.',traits:{vehicle:true,aircraft:true,flies:true}},
+{name:'Royal Enfield Bullet',desc:'Iconic Indian motorcycle.',traits:{vehicle:true,bike:true,indian:true}},
+{name:'Lamborghini Aventador',desc:'Italian supercar.',traits:{vehicle:true,car:true,sports:true,fast:true,luxury:true}}
+],
+
+8:[
+{name:'India',desc:'South Asian country with a rich cultural history.',traits:{place:true,country:true,asia:true,indian:true}},
+{name:'Japan',desc:'Island country in East Asia.',traits:{place:true,country:true,asia:true}},
+{name:'France',desc:'European country famous for Paris.',traits:{place:true,country:true,europe:true}},
+{name:'United States',desc:'Country in North America.',traits:{place:true,country:true,america:true}},
+{name:'Paris',desc:'Capital city of France.',traits:{place:true,city:true,europe:true}},
+{name:'Mount Everest',desc:'The world's highest mountain above sea level.',traits:{place:true,mountain:true,asia:true}},
+{name:'Taj Mahal',desc:'Famous monument in Agra, India.',traits:{place:true,monument:true,indian:true}}
+],
+
+9:[
+{name:'Smartphone',desc:'A portable touchscreen computing device.',traits:{object:true,electronic:true,portable:true}},
+{name:'Computer',desc:'An electronic machine for processing information.',traits:{object:true,electronic:true,technology:true}},
+{name:'Telephone',desc:'A device used for communication.',traits:{object:true,electronic:true,communication:true}},
+{name:'Light Bulb',desc:'An invention that produces light.',traits:{object:true,electronic:true,invention:true}},
+{name:'Airplane',desc:'A powered aircraft for air travel.',traits:{object:true,vehicle:true,flies:true,invention:true}},
+{name:'Telescope',desc:'An instrument for viewing distant objects.',traits:{object:true,scientific:true,invention:true}},
+{name:'Camera',desc:'A device used to capture photographs.',traits:{object:true,electronic:true,portable:true}}
+]
+
+};
+
+// QUESTIONS
+const questions=[
+['Is your answer a person?','person'],
+['Is it male?','male'],
+['Is it female?','female'],
+['Is it Indian?','indian'],
+['Is it alive today?','alive'],
+['Is it a scientist?','scientist'],
+['Is it connected with sports?','sports'],
+['Is it an actor or entertainer?','actor'],
+['Is it a politician or ruler?','politician'],
+['Is it a historical figure?','historical'],
+['Is it American?','american'],
+['Is it fictional?','fictional'],
+['Is it a superhero?','superhero'],
+['Is it from Marvel?','marvel'],
+['Is it from DC Comics?','dc'],
+['Is it associated with magic?','magic'],
+['Is it an animal?','animal'],
+['Is it a bird?','bird'],
+['Is it a pet?','pet'],
+['Does it live in water?','water'],
+['Can it fly?','flies'],
+['Is it a mammal?','mammal'],
+['Is it a vehicle?','vehicle'],
+['Is it a car?','car'],
+['Is it a luxury vehicle?','luxury'],
+['Is it electric?','electric'],
+['Is it a country?','country'],
+['Is it a city?','city'],
+['Is it in Asia?','asia'],
+['Is it an invention?','invention'],
+['Is it electronic?','electronic'],
+['Is it connected with technology?','technology'],
+['Is it a gaming character?','gaming'],
+['Is it associated with Nintendo?','nintendo'],
+['Is it known for being very fast?','fast']
+];
+
+let selectedCategory=0;
+let candidates=[];
+let asked=[];
+let currentQuestion=null;
+let questionNumber=0;
+let guessList=[];
+let guessIndex=0;
+
+function showScreen(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function startGame(category){
+  selectedCategory=category;
+  candidates=database[category].map(c=>({...c,traits:{...c.traits}}));
+  asked=[];
+  questionNumber=0;
+  guessList=[];
+  guessIndex=0;
+
+  document.getElementById('categoryBadge').textContent=categories[category].name.toUpperCase();
+  showScreen('game');
+  nextQuestion();
+}
+
+// Score each candidate using previous answers.
+// The engine keeps uncertain answers less influential.
+
+function answerQuestion(answer){
+  if(!currentQuestion)return;
+
+  const key=currentQuestion.key;
+
+  const weights={
+    yes:1,
+    probably:0.65,
+    unlikely:-0.55,
+    no:-1,
+    unknown:0
+  };
+
+  candidates.forEach(c=>{
+    const actual=!!c.traits[key];
+    const expected=weights[answer]>0;
+    let score=c.score||0;
+
+    if(answer!=='unknown'){
+      if(actual===expected){
+        score+=Math.abs(weights[answer]);
+      }else{
+        score-=Math.abs(weights[answer]);
+      }
+    }
+
+    c.score=score;
+  });
+
+  // Keep candidates that fit the answers best.
+  candidates.sort((a,b)=>b.score-a.score);
+
+  questionNumber++;
+  nextQuestion();
+}
+
+function nextQuestion(){
+  if(candidates.length===0){
+    showScreen('end');
+    return;
+  }
+
+  if(questionNumber>=12 || candidates.length===1){
+    prepareGuess();
+    return;
+  }
+
+  let best=null;
+  let bestBalance=Infinity;
+
+  for(const q of questions){
+    if(asked.includes(q[1]))continue;
+
+    const yesCount=candidates.filter(c=>!!c.traits[q[1]]).length;
+    const noCount=candidates.length-yesCount;
+
+    if(yesCount===0 || noCount===0)continue;
+
+    const balance=Math.abs(yesCount-noCount);
+
+    if(balance<bestBalance){
+      bestBalance=balance;
+      best=q;
+    }
+  }
+
+  if(!best){
+    prepareGuess();
+    return;
+  }
+
+  currentQuestion={text:best[0],key:best[1]};
+  asked.push(best[1]);
+
+  document.getElementById('questionText').textContent=best[0];
+  document.getElementById('questionCount').textContent='QUESTION '+(questionNumber+1);
+  document.getElementById('progressFill').style.width=Math.min(100,(questionNumber+1)/12*100)+'%';
+}
+
+function prepareGuess(){
+  candidates.sort((a,b)=>(b.score||0)-(a.score||0));
+  guessList=candidates.slice(0,5);
+  guessIndex=0;
+  displayGuess();
+}
+
+function displayGuess(){
+  if(guessIndex>=guessList.length){
+    showScreen('end');
+    return;
+  }
+
+  const c=guessList[guessIndex];
+
+  document.getElementById('guessName').textContent=c.name;
+  document.getElementById('guessDescription').textContent=c.desc;
+  showScreen('result');
+}
+
+function correctGuess(){
+  document.getElementById('guessName').textContent='I GOT IT!';
+  document.getElementById('guessDescription').textContent='The magic worked! GUSSIFY discovered what you were thinking about. Well played!';
+  document.querySelector('.result-actions').innerHTML='<button class="gold-button" onclick="showScreen(\'categories\')">PLAY AGAIN ✦</button>';
+}
+
+function wrongGuess(){
+  guessIndex++;
+  displayGuess();
+}
+
+</script>
+</body>
+</html>
